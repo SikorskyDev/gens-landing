@@ -3,7 +3,6 @@ import Head from "next/head";
 import { Roboto } from "next/font/google";
 import Timer from "@/components/Timer";
 import Discount from "@/components/Discount";
-import MyButton from "@/components/MyButton";
 import MyButton2 from "@/components/MyButton2";
 import MyButtonTop from "@/components/MyButtonTop";
 import gen1 from "../public/img/gens/1.png";
@@ -25,6 +24,11 @@ import reviewsBack from "../public/icons/reviews/back.svg";
 import reviewsNext from "../public/icons/reviews/next.svg";
 import rewiewsTestAvatar from "../public/img/avatars/1.jpg";
 import rewiewsStar from "../public/icons/reviews/star.svg";
+import offersIcon1 from "../public/icons/offer/1.svg";
+import offersIcon2 from "../public/icons/offer/2.svg";
+import offersIcon3 from "../public/icons/offer/3.svg";
+import offersIcon4 from "../public/icons/offer/4.svg";
+import offersArrow from "../public/icons/offer/arrow.svg";
 
 const roboto = Roboto({
     subsets: ["latin"],
@@ -37,6 +41,8 @@ export default function Home() {
     const [openLT3800, setOpenLT3800] = useState(false);
     const [openLT4500, setOpenLT4500] = useState(false);
     const [openLT6500, setOpenLT6500] = useState(false);
+
+
     React.useEffect(() => {
         function handleResize() {
             setWidth(window.innerWidth);
@@ -1079,7 +1085,7 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
-                <div className="reviews">
+                <section className="reviews">
                     <div className="reviews__title">
                         <div className="reviews__title-value">
                             ВІДГУКИ КЛІЄНТІВ
@@ -1135,9 +1141,80 @@ export default function Home() {
                         </MyButton2>
                     </div>
                     <div className="reviews__count">
-                            Відгуки від клієнтів (35шт)
+                        Відгуки від клієнтів (35шт)
                     </div>
-                </div>
+                </section>
+                <section className="offers">
+                    <div className="offers__title">
+                        <div className="offers__title-value">
+                            Замовлення і доставка
+                        </div>
+                    </div>
+                    <div className="offers__line"></div>
+                    <div className="offers__steps __container">
+                        <div className="offers__steps-row">
+                            <div className="offers__steps-row-icon">
+                                <div className="offers__steps-row-icon-block">
+                                    <Image src={offersIcon1} alt="icon" />
+                                </div>
+                            </div>
+                            <div className="offers__steps-row-number">1</div>
+                            <div className="offers__steps-row-text">
+                                Ви залишаєте заявку нашому на сайті
+                            </div>
+                        </div>
+                        <div className="offers__steps-arrow">
+                            <Image src={offersArrow} alt="arrow" />
+                        </div>
+                        <div className="offers__steps-row">
+                            <div className="offers__steps-row-icon">
+                                <div className="offers__steps-row-icon-block">
+                                    <Image src={offersIcon2} alt="icon" />
+                                </div>
+                            </div>
+                            <div className="offers__steps-row-number">2</div>
+                            <div className="offers__steps-row-text">
+                                Менеджер зв’язується з Вами для уточнення
+                            </div>
+                        </div>
+                        <div className="offers__steps-arrow">
+                            <Image src={offersArrow} alt="arrow" />
+                        </div>
+                        <div className="offers__steps-row">
+                            <div className="offers__steps-row-icon">
+                                <div className="offers__steps-row-icon-block">
+                                    <Image src={offersIcon3} alt="icon" />
+                                </div>
+                            </div>
+                            <div className="offers__steps-row-number">3</div>
+                            <div className="offers__steps-row-text">
+                                Відправляємо Ваше замовлення Новою поштою за 1-3
+                                дні{" "}
+                            </div>
+                        </div>
+                        <div className="offers__steps-arrow">
+                            <Image src={offersArrow} alt="arrow" />
+                        </div>
+                        <div className="offers__steps-row">
+                            <div className="offers__steps-row-icon">
+                                <div className="offers__steps-row-icon-block">
+                                    <Image src={offersIcon4} alt="icon" />
+                                </div>
+                            </div>
+                            <div className="offers__steps-row-number">4</div>
+                            <div className="offers__steps-row-text">
+                                Ви оплачуєте замовлення по факту отримання
+                                наложеним платежом
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section className="getGenerator">
+                    <div className="getGenerator__text __container">Отримати Генератор зі знижкою та газовим конвектором до набору</div>
+                </section>
+                <section className="thirdTimer">
+                    <Timer />
+                </section>
             </div>
         </>
     );
