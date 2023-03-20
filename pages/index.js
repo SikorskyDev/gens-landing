@@ -21,7 +21,6 @@ import genImg2 from "../public/img/gens/gensList/2.jpg";
 import genImg3 from "../public/img/gens/gensList/3.jpg";
 import referenceIcon from "../public/icons/gensList.svg";
 import referenceIconUp from "../public/icons/gensListUp.svg";
-import GensList from "@/components/sections/gensList";
 
 const roboto = Roboto({
     subsets: ["latin"],
