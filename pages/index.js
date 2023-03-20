@@ -1223,6 +1223,40 @@ export default function Home() {
                         <Form />
                     </div>
                 </section>
+                <section className="receiveGen">
+                    <div className="receiveGen__container">
+                        <div className="receiveGen__value">
+                            Отримати Генератор зі знижкою та газовим конвектором
+                            до набору
+                        </div>
+                    </div>
+                </section>
+                <section className="docs">
+                    <div className="docs__container">
+                        <div className="docs__row">
+                            <div className="docs__row-dot"></div>
+                            <div className="docs__row-value">
+                                Політика конфеденціальності
+                            </div>
+                        </div>
+                        <div className="docs__row">
+                            <div className="docs__row-dot"></div>
+                            <div className="docs__row-value">
+                                Регламент магазину{" "}
+                            </div>
+                        </div>
+                        <div className="docs__row">
+                            <div className="docs__row-dot"></div>
+                            <div className="docs__row-value">
+                                Скарги і повернення{" "}
+                            </div>
+                        </div>
+                        <div className="docs__row">
+                            <div className="docs__row-dot"></div>
+                            <div className="docs__row-value">Оферта </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </>
     );
