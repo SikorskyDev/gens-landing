@@ -29,6 +29,7 @@ import offersIcon2 from "../public/icons/offer/2.svg";
 import offersIcon3 from "../public/icons/offer/3.svg";
 import offersIcon4 from "../public/icons/offer/4.svg";
 import offersArrow from "../public/icons/offer/arrow.svg";
+import Form from "@/components/Form/Form";
 
 const roboto = Roboto({
     subsets: ["latin"],
@@ -41,7 +42,6 @@ export default function Home() {
     const [openLT3800, setOpenLT3800] = useState(false);
     const [openLT4500, setOpenLT4500] = useState(false);
     const [openLT6500, setOpenLT6500] = useState(false);
-
 
     React.useEffect(() => {
         function handleResize() {
@@ -1210,10 +1210,18 @@ export default function Home() {
                     </div>
                 </section>
                 <section className="getGenerator">
-                    <div className="getGenerator__text __container">Отримати Генератор зі знижкою та газовим конвектором до набору</div>
+                    <div className="getGenerator__text __container">
+                        Отримати Генератор зі знижкою та газовим конвектором до
+                        набору
+                    </div>
                 </section>
                 <section className="thirdTimer">
                     <Timer />
+                </section>
+                <section className="inputsGens">
+                    <div className="form__container">
+                        <Form />
+                    </div>
                 </section>
             </div>
         </>
