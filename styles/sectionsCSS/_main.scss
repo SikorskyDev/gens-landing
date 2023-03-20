@@ -1,17 +1,8 @@
 .main {
-    padding-top: 76px;
+    padding-top: 20px;
     padding-bottom: 40px;
-    @media (max-width: 870px) {
-        padding-top: 40px;
-        padding-bottom: 40px;
-    }
     @media (max-width: 650px) {
         margin-top: -50px;
-        padding-top: 20px;
-        padding-bottom: 20px;
-    }
-    @media (max-width: 450px) {
-        padding-top: 10px;
     }
 }
 .main__container {
@@ -19,7 +10,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    gap: 80px;
+    gap: 60px;
     @media (max-width: 870px) {
         gap: 40px;
     }
@@ -36,6 +27,9 @@
 .main__generatorImageContainer {
     width: 744px;
     height: auto;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 40px;
     @media (max-width: 870px) {
         width: 600px;
     }
@@ -48,17 +42,22 @@
     }
 }
 .main__generatorImage {
-    width: 100%;
+    width: 80%;
     height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+        width: 100%;
+    }
 }
-.main__discount{
+.main__discount {
     margin-top: -106px;
     @media (max-width: 870px) {
         margin-top: -60px;
     }
     @media (max-width: 650px) {
         margin-top: -50px;
-
     }
     @media (max-width: 450px) {
         margin-top: -40px;
