@@ -6,7 +6,7 @@ import Discount from "@/components/Discount";
 import MyButton2 from "@/components/MyButton2";
 import MyButtonTop from "@/components/MyButtonTop";
 import gen1 from "../public/img/gens/1.png";
-import Image from 'next/legacy/image';
+import Image from "next/legacy/image";
 import Slider from "@/components/Slider/Slider";
 import SliderTitles from "@/components/Slider/SliderTitles";
 import specialOfferDecorImage from "../public/img/specialOffer/1.svg";
@@ -75,14 +75,14 @@ export default function Home() {
 
     const previousResponse = () => {
         if (currentIndex === 0) {
-            setCurrentIndex(products.length - 1);
+            setCurrentIndex(responseArr.length - 1);
         } else {
             setCurrentIndex(currentIndex - 1);
         }
     };
 
     const nextResponse = () => {
-        if (currentIndex === products.length - 1) {
+        if (currentIndex === responseArr.length - 1) {
             setCurrentIndex(0);
         } else {
             setCurrentIndex(currentIndex + 1);
@@ -1125,43 +1125,71 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="reviews__row __container">
-                        <div className="reviews__row-prev">
+                        <div className="reviews__row-prev" onClick={previousResponse}>
                             <Image src={reviewsBack} alt="back" />
                         </div>
                         <div className="reviews__row-body">
                             <div className="reviews__row-body-left">
                                 <div className="reviews__row-body-left-avatar">
                                     <Image
-                                        src={rewiewsTestAvatar}
-                                        alt="avatar"
+                                        src={`${
+                                            currentResponse?.imageUrl !=
+                                                undefined &&
+                                            currentResponse?.imageUrl !=
+                                                "null" &&
+                                            currentResponse?.imageUrl != ""
+                                                ? currentResponse?.imageUrl
+                                                : "/img/avatars/1.jpg"
+                                        }`}
+                                        alt={`${
+                                            currentResponse?.imageUrl !=
+                                                undefined &&
+                                            currentResponse?.imageUrl != "null"
+                                                ? currentResponse?.imageUrl
+                                                : "/img/avatars/1.jpg"
+                                        }`}
+                                        width={100}
+                                        height={100}
+                                        layout="responsive"
+                                        objectFit="cover"
                                     />
                                 </div>
                                 <div className="reviews__row-body-left-rating">
-                                    <Image src={rewiewsStar} alt="star" />
-                                    <Image src={rewiewsStar} alt="star" />
-                                    <Image src={rewiewsStar} alt="star" />
-                                    <Image src={rewiewsStar} alt="star" />
-                                    <Image src={rewiewsStar} alt="star" />
+                                    {Array.from({
+                                        length:
+                                            Math.ceil(
+                                                Number(currentResponse?.rating)
+                                            ) > 5
+                                                ? 5
+                                                : Math.ceil(
+                                                      Number(
+                                                          currentResponse?.rating
+                                                      )
+                                                  ),
+                                    }).map((_, index) => {
+                                        return (
+                                            <Image
+                                                key={index.toString()}
+                                                src={rewiewsStar}
+                                                alt="star"
+                                            />
+                                        );
+                                    })}
                                 </div>
                                 <div className="reviews__row-body-left-data">
-                                    20.03.2023
+                                    {currentResponse?.date}
                                 </div>
                             </div>
                             <div className="reviews__row-body-right">
                                 <div className="reviews__row-body-right-title">
-                                    Олег Олександрович
+                                    {currentResponse?.name}
                                 </div>
                                 <div className="reviews__row-body-right-text">
-                                    Lorem ipsum dolor sit amet consectetur.
-                                    Tincidunt augue lacus dis tortor ac vitae
-                                    aenean maecenas eu.Tincidunt augue lacus dis
-                                    tortor ac vitae aenean maecenas eu.Tincidunt
-                                    augue lacus dis tortor ac vitae aenean
-                                    maecenas eu.
+                                    {currentResponse?.description}
                                 </div>
                             </div>
                         </div>
-                        <div className="reviews__row-next">
+                        <div className="reviews__row-next" onClick={nextResponse}>
                             <Image src={reviewsNext} alt="next" />
                         </div>
                     </div>
@@ -1174,7 +1202,7 @@ export default function Home() {
                         </MyButton2>
                     </Link>
                     <div className="reviews__count">
-                        Відгуки від клієнтів (35шт)
+                        Відгуки від клієнтів ({responseArr ? responseArr.length : "38"} шт)
                     </div>
                 </section>
                 <section className="offers">
