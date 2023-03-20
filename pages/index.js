@@ -21,6 +21,10 @@ import genImg2 from "../public/img/gens/gensList/2.jpg";
 import genImg3 from "../public/img/gens/gensList/3.jpg";
 import referenceIcon from "../public/icons/gensList.svg";
 import referenceIconUp from "../public/icons/gensListUp.svg";
+import reviewsBack from "../public/icons/reviews/back.svg";
+import reviewsNext from "../public/icons/reviews/next.svg";
+import rewiewsTestAvatar from "../public/img/avatars/1.jpg";
+import rewiewsStar from "../public/icons/reviews/star.svg";
 
 const roboto = Roboto({
     subsets: ["latin"],
@@ -336,12 +340,22 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="gens__reference">
-                            <div className="gens__reference-title" onClick={()=> setOpenLT3800(!openLT3800)}>
+                            <div
+                                className="gens__reference-title"
+                                onClick={() => setOpenLT3800(!openLT3800)}
+                            >
                                 <div className="gens__reference-title-value">
                                     ХАРАКТЕРИСТИКИ
                                 </div>
                                 <div className="gens__reference-title-icon">
-                                    <Image src={!openLT3800 ? referenceIcon : referenceIconUp} alt="icon" />
+                                    <Image
+                                        src={
+                                            !openLT3800
+                                                ? referenceIcon
+                                                : referenceIconUp
+                                        }
+                                        alt="icon"
+                                    />
                                 </div>
                             </div>
                             <div className="gens__reference-row ">
@@ -582,12 +596,22 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="gens__reference">
-                            <div className="gens__reference-title" onClick={()=> setOpenLT4500(!openLT4500)}>
+                            <div
+                                className="gens__reference-title"
+                                onClick={() => setOpenLT4500(!openLT4500)}
+                            >
                                 <div className="gens__reference-title-value">
                                     ХАРАКТЕРИСТИКИ
                                 </div>
                                 <div className="gens__reference-title-icon">
-                                    <Image src={!openLT4500 ? referenceIcon : referenceIconUp} alt="icon" />
+                                    <Image
+                                        src={
+                                            !openLT4500
+                                                ? referenceIcon
+                                                : referenceIconUp
+                                        }
+                                        alt="icon"
+                                    />
                                 </div>
                             </div>
                             <div className="gens__reference-row ">
@@ -828,12 +852,22 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="gens__reference">
-                            <div className="gens__reference-title" onClick={()=> setOpenLT6500(!openLT6500)}>
+                            <div
+                                className="gens__reference-title"
+                                onClick={() => setOpenLT6500(!openLT6500)}
+                            >
                                 <div className="gens__reference-title-value">
                                     ХАРАКТЕРИСТИКИ
                                 </div>
                                 <div className="gens__reference-title-icon">
-                                    <Image src={!openLT6500 ? referenceIcon : referenceIconUp} alt="icon" />
+                                    <Image
+                                        src={
+                                            !openLT6500
+                                                ? referenceIcon
+                                                : referenceIconUp
+                                        }
+                                        alt="icon"
+                                    />
                                 </div>
                             </div>
                             <div className="gens__reference-row ">
@@ -1045,6 +1079,65 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
+                <div className="reviews">
+                    <div className="reviews__title">
+                        <div className="reviews__title-value">
+                            ВІДГУКИ КЛІЄНТІВ
+                        </div>
+                    </div>
+                    <div className="reviews__row __container">
+                        <div className="reviews__row-prev">
+                            <Image src={reviewsBack} alt="back" />
+                        </div>
+                        <div className="reviews__row-body">
+                            <div className="reviews__row-body-left">
+                                <div className="reviews__row-body-left-avatar">
+                                    <Image
+                                        src={rewiewsTestAvatar}
+                                        alt="avatar"
+                                    />
+                                </div>
+                                <div className="reviews__row-body-left-rating">
+                                    <Image src={rewiewsStar} alt="star" />
+                                    <Image src={rewiewsStar} alt="star" />
+                                    <Image src={rewiewsStar} alt="star" />
+                                    <Image src={rewiewsStar} alt="star" />
+                                    <Image src={rewiewsStar} alt="star" />
+                                </div>
+                                <div className="reviews__row-body-left-data">
+                                    20.03.2023
+                                </div>
+                            </div>
+                            <div className="reviews__row-body-right">
+                                <div className="reviews__row-body-right-title">
+                                    Олег Олександрович
+                                </div>
+                                <div className="reviews__row-body-right-text">
+                                    Lorem ipsum dolor sit amet consectetur.
+                                    Tincidunt augue lacus dis tortor ac vitae
+                                    aenean maecenas eu.Tincidunt augue lacus dis
+                                    tortor ac vitae aenean maecenas eu.Tincidunt
+                                    augue lacus dis tortor ac vitae aenean
+                                    maecenas eu.
+                                </div>
+                            </div>
+                        </div>
+                        <div className="reviews__row-next">
+                            <Image src={reviewsNext} alt="next" />
+                        </div>
+                    </div>
+                    <div className="reviews__btn">
+                        <MyButton2
+                            btnHeight={"90px"}
+                            fontSize={width < 308 ? 15 : 20}
+                        >
+                            ЗАЛИШИТИ СВІЙ ВІДГУК
+                        </MyButton2>
+                    </div>
+                    <div className="reviews__count">
+                            Відгуки від клієнтів (35шт)
+                    </div>
+                </div>
             </div>
         </>
     );
