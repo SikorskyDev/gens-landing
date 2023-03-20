@@ -6,7 +6,7 @@ import Discount from "@/components/Discount";
 import MyButton2 from "@/components/MyButton2";
 import MyButtonTop from "@/components/MyButtonTop";
 import gen1 from "../public/img/gens/1.png";
-import Image from "next/image";
+import Image from 'next/legacy/image';
 import Slider from "@/components/Slider/Slider";
 import SliderTitles from "@/components/Slider/SliderTitles";
 import specialOfferDecorImage from "../public/img/specialOffer/1.svg";
@@ -30,6 +30,7 @@ import offersIcon3 from "../public/icons/offer/3.svg";
 import offersIcon4 from "../public/icons/offer/4.svg";
 import offersArrow from "../public/icons/offer/arrow.svg";
 import Form from "@/components/Form/Form";
+import Link from "next/link";
 
 const roboto = Roboto({
     subsets: ["latin"],
@@ -57,6 +58,38 @@ export default function Home() {
         // Прибираємо слухача події при розмонтовуванні компонента
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    //Відгуки
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [responseArr, setResponseArr] = useState([]);
+
+    React.useEffect(() => {
+        fetch(
+            "https://lending-generator-server.herokuapp.com/get-all-admin-comments"
+        )
+            .then((res) => res.json())
+            .then((res) => {
+                setResponseArr(res);
+            });
+    }, []);
+
+    const previousResponse = () => {
+        if (currentIndex === 0) {
+            setCurrentIndex(products.length - 1);
+        } else {
+            setCurrentIndex(currentIndex - 1);
+        }
+    };
+
+    const nextResponse = () => {
+        if (currentIndex === products.length - 1) {
+            setCurrentIndex(0);
+        } else {
+            setCurrentIndex(currentIndex + 1);
+        }
+    };
+
+    const currentResponse = responseArr[currentIndex];
 
     return (
         <>
@@ -1132,14 +1165,14 @@ export default function Home() {
                             <Image src={reviewsNext} alt="next" />
                         </div>
                     </div>
-                    <div className="reviews__btn">
+                    <Link href={"/response"} className="reviews__btn">
                         <MyButton2
                             btnHeight={"90px"}
                             fontSize={width < 308 ? 15 : 20}
                         >
                             ЗАЛИШИТИ СВІЙ ВІДГУК
                         </MyButton2>
-                    </div>
+                    </Link>
                     <div className="reviews__count">
                         Відгуки від клієнтів (35шт)
                     </div>
@@ -1233,28 +1266,33 @@ export default function Home() {
                 </section>
                 <section className="docs">
                     <div className="docs__container">
-                        <div className="docs__row">
+                        <Link href={"/docs/politics.pdf"} className="docs__row">
                             <div className="docs__row-dot"></div>
                             <div className="docs__row-value">
                                 Політика конфеденціальності
                             </div>
-                        </div>
-                        <div className="docs__row">
+                        </Link>
+                        <Link
+                            href={"/docs/reglament.pdf"}
+                            className="docs__row"
+                        >
                             <div className="docs__row-dot"></div>
                             <div className="docs__row-value">
                                 Регламент магазину{" "}
                             </div>
-                        </div>
-                        <div className="docs__row">
+                        </Link>
+                        <Link href={"/docs/return.pdf"} className="docs__row">
                             <div className="docs__row-dot"></div>
                             <div className="docs__row-value">
                                 Скарги і повернення{" "}
                             </div>
-                        </div>
-                        <div className="docs__row">
+                        </Link>
+                        <Link href={"/docs/return.pdf"} className="docs__row">
                             <div className="docs__row-dot"></div>
-                            <div className="docs__row-value">Оферта </div>
-                        </div>
+                            <div className="docs__row-value">
+                                Акт повернення товару
+                            </div>
+                        </Link>
                     </div>
                 </section>
             </div>

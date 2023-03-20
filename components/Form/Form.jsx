@@ -11,7 +11,6 @@ const Form = () => {
     } = useForm({
         mode: "onBlur",
     });
-
     const onSubmit = handleSubmit((data) => {
         alert(JSON.stringify({ data }));
         reset();
@@ -79,8 +78,9 @@ const Form = () => {
                 <select {...register("select", {
                     required: "необхідно вибрати генератор"
                 })}>
-                    <option value="LT3800">LUOTIAN LT3800 3,8 кВт - 7599 грн - жовтий - в наявності</option>
+                    <option value={`LUOTIAN LT3800 3,8 кВт - 7599 грн - жовтий - в наявності`}>LUOTIAN LT3800 3,8 кВт - 7599 грн - жовтий - в наявності</option>
                     <option value="LT4600">LUOTIAN LT4600 3,8 кВт - 7599 грн - жовтий - в наявності</option>
+                    <option value="LT6500">LUOTIAN LT6500 3,8 кВт - 7599 грн - жовтий - в наявності</option>
                     <option value="LT6500">LUOTIAN LT6500 3,8 кВт - 7599 грн - жовтий - в наявності</option>
                 </select>
                 <div style={{ height: 20 }}>
