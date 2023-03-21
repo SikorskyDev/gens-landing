@@ -22,7 +22,6 @@ import referenceIcon from "../public/icons/gensList.svg";
 import referenceIconUp from "../public/icons/gensListUp.svg";
 import reviewsBack from "../public/icons/reviews/back.svg";
 import reviewsNext from "../public/icons/reviews/next.svg";
-import rewiewsTestAvatar from "../public/img/avatars/1.jpg";
 import rewiewsStar from "../public/icons/reviews/star.svg";
 import offersIcon1 from "../public/icons/offer/1.svg";
 import offersIcon2 from "../public/icons/offer/2.svg";
@@ -38,12 +37,14 @@ const roboto = Roboto({
 });
 
 export default function Home() {
-    const [width, setWidth] = React.useState();
-
+    //-------------------Відкриття та закриття характеристик------------------------
     const [openLT3800, setOpenLT3800] = useState(false);
     const [openLT4500, setOpenLT4500] = useState(false);
     const [openLT6500, setOpenLT6500] = useState(false);
+    //------------------------------------------------------------------------------
 
+    //-------------------Отримую ширину екрана------------------------
+    const [width, setWidth] = React.useState();
     React.useEffect(() => {
         function handleResize() {
             setWidth(window.innerWidth);
@@ -58,8 +59,9 @@ export default function Home() {
         // Прибираємо слухача події при розмонтовуванні компонента
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+    //----------------------------------------------------------------
 
-    //Відгуки
+    //--------------Відгуки-------------------
     const [currentIndex, setCurrentIndex] = useState(0);
     const [responseArr, setResponseArr] = useState([]);
 
@@ -90,6 +92,10 @@ export default function Home() {
     };
 
     const currentResponse = responseArr[currentIndex];
+    //------------------------------------------
+
+    //Вмикання плеєра по натисканню на зображення в першому блоці
+    const [playVideo, setPlayVideo] = useState(false);
 
     return (
         <>
@@ -142,11 +148,16 @@ export default function Home() {
                             </MyButtonTop>
                         </div>
                         <div className="main__generatorImageContainer">
-                            <Image
-                                src={gen1}
-                                className={"main__generatorImage"}
-                                alt="myImg"
-                            />
+                            <a
+                                href="#section-mainVideo"
+                                onClick={() => setPlayVideo(!playVideo)}
+                            >
+                                <Image
+                                    src={gen1}
+                                    className={"main__generatorImage"}
+                                    alt="myImg"
+                                />
+                            </a>
                         </div>
                     </div>
                 </section>
@@ -167,19 +178,21 @@ export default function Home() {
                             <Timer />
                         </div>
                         <div className="firstTimer__choseGen">
-                            <MyButton2
-                                fontSize={
-                                    width < 400 ? 15 : width > 685 ? 42 : 25
-                                }
-                                fontWeight={400}
-                                btnHeight="150px"
-                                lineHeight={
-                                    width < 400 ? 20 : width > 685 ? 50 : 25
-                                }
-                            >
-                                Обрати потрібний <br />
-                                генератор
-                            </MyButton2>
+                            <a href="#section-gensList">
+                                <MyButton2
+                                    fontSize={
+                                        width < 400 ? 15 : width > 685 ? 42 : 25
+                                    }
+                                    fontWeight={400}
+                                    btnHeight="150px"
+                                    lineHeight={
+                                        width < 400 ? 20 : width > 685 ? 50 : 25
+                                    }
+                                >
+                                    Обрати потрібний <br />
+                                    генератор
+                                </MyButton2>
+                            </a>
                         </div>
                     </div>
                 </section>
@@ -209,7 +222,9 @@ export default function Home() {
                         }}
                     >
                         <div className="specialOffer__generator-img">
-                            <Image src={gen1} alt="myImg" />
+                            <a href="#section-getPrice">
+                                <Image src={gen1} alt="myImg" />
+                            </a>
                         </div>
                         <div className="specialOffer__generator-decor">
                             <Image src={specialOfferDecorImage} alt="decor" />
@@ -239,32 +254,36 @@ export default function Home() {
                         backgroundPosition: "center",
                         backgroundRepeat: "no-repeat",
                     }}
+                    id="section-getPrice"
                 >
                     <div className="secondTimer__row">
                         <div className="secondTimer__timer">
                             <Timer />
                         </div>
                         <div className="secondTimer__get">
-                            <MyButton2
-                                fontSize={
-                                    width < 400 ? 15 : width > 685 ? 42 : 25
-                                }
-                                fontWeight={400}
-                                btnHeight="150px"
-                                lineHeight={
-                                    width < 400 ? 20 : width > 685 ? 50 : 25
-                                }
-                            >
-                                ОТРИМАТИ ПОДАРУНОК
-                            </MyButton2>
+                            <a href="#section-gensList">
+                                <MyButton2
+                                    fontSize={
+                                        width < 400 ? 15 : width > 685 ? 42 : 25
+                                    }
+                                    fontWeight={400}
+                                    btnHeight="150px"
+                                    lineHeight={
+                                        width < 400 ? 20 : width > 685 ? 50 : 25
+                                    }
+                                >
+                                    ОТРИМАТИ ПОДАРУНОК
+                                </MyButton2>
+                            </a>
                         </div>
                     </div>
                 </section>
-                <section className="mainVideo">
+                <section className="mainVideo" id="section-mainVideo">
                     <ReactVideo
                         videoUrl={"/video/1.mp4"}
                         videoWidth={"100%"}
                         videoHeight={width < 375 ? 300 : 600}
+                        playing={playVideo}
                     />
                     <div className="mainVideo__description __container">
                         <div className="mainVideo__description-text">
@@ -348,7 +367,7 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
-                <section className="gensList">
+                <section className="gensList" id="section-gensList">
                     <div className="gensList__item">
                         <div className="gens__title">
                             <div className="gens__title-value __container">
@@ -592,17 +611,19 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="gens__buy">
-                            <MyButton2
-                                btnHeight="140px"
-                                fontSize={
-                                    width < 312 ? 15 : width > 505 ? 30 : 18
-                                }
-                                lineHeight={width > 505 ? 40 : 20}
-                            >
-                                Замовити зі знижкою
-                                <br />
-                                LUOTIAN LT3800
-                            </MyButton2>
+                            <a href="#section-inputsGens">
+                                <MyButton2
+                                    btnHeight="140px"
+                                    fontSize={
+                                        width < 312 ? 15 : width > 505 ? 30 : 18
+                                    }
+                                    lineHeight={width > 505 ? 40 : 20}
+                                >
+                                    Замовити зі знижкою
+                                    <br />
+                                    LUOTIAN LT3800
+                                </MyButton2>
+                            </a>
                         </div>
                     </div>
                     <div className="gensList__item">
@@ -848,17 +869,19 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="gens__buy">
-                            <MyButton2
-                                btnHeight="140px"
-                                fontSize={
-                                    width < 312 ? 15 : width > 505 ? 30 : 18
-                                }
-                                lineHeight={width > 505 ? 40 : 20}
-                            >
-                                Замовити зі знижкою
-                                <br />
-                                LUOTIAN LT4500
-                            </MyButton2>
+                            <a href="#section-inputsGens">
+                                <MyButton2
+                                    btnHeight="140px"
+                                    fontSize={
+                                        width < 312 ? 15 : width > 505 ? 30 : 18
+                                    }
+                                    lineHeight={width > 505 ? 40 : 20}
+                                >
+                                    Замовити зі знижкою
+                                    <br />
+                                    LUOTIAN LT4500
+                                </MyButton2>
+                            </a>
                         </div>
                     </div>
                     <div className="gensList__item">
@@ -1104,17 +1127,19 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="gens__buy">
-                            <MyButton2
-                                btnHeight="140px"
-                                fontSize={
-                                    width < 312 ? 15 : width > 505 ? 30 : 18
-                                }
-                                lineHeight={width > 505 ? 40 : 20}
-                            >
-                                Замовити зі знижкою
-                                <br />
-                                LUOTIAN LT6500
-                            </MyButton2>
+                            <a href="#section-inputsGens">
+                                <MyButton2
+                                    btnHeight="140px"
+                                    fontSize={
+                                        width < 312 ? 15 : width > 505 ? 30 : 18
+                                    }
+                                    lineHeight={width > 505 ? 40 : 20}
+                                >
+                                    Замовити зі знижкою
+                                    <br />
+                                    LUOTIAN LT6500
+                                </MyButton2>
+                            </a>
                         </div>
                     </div>
                 </section>
@@ -1125,7 +1150,10 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="reviews__row __container">
-                        <div className="reviews__row-prev" onClick={previousResponse}>
+                        <div
+                            className="reviews__row-prev"
+                            onClick={previousResponse}
+                        >
                             <Image src={reviewsBack} alt="back" />
                         </div>
                         <div className="reviews__row-body">
@@ -1189,7 +1217,10 @@ export default function Home() {
                                 </div>
                             </div>
                         </div>
-                        <div className="reviews__row-next" onClick={nextResponse}>
+                        <div
+                            className="reviews__row-next"
+                            onClick={nextResponse}
+                        >
                             <Image src={reviewsNext} alt="next" />
                         </div>
                     </div>
@@ -1202,7 +1233,8 @@ export default function Home() {
                         </MyButton2>
                     </Link>
                     <div className="reviews__count">
-                        Відгуки від клієнтів ({responseArr ? responseArr.length : "38"} шт)
+                        Відгуки від клієнтів (
+                        {responseArr ? responseArr.length : "38"} шт)
                     </div>
                 </section>
                 <section className="offers">
@@ -1279,7 +1311,7 @@ export default function Home() {
                 <section className="thirdTimer">
                     <Timer />
                 </section>
-                <section className="inputsGens">
+                <section className="inputsGens" id="section-inputsGens">
                     <div className="form__container">
                         <Form />
                     </div>
