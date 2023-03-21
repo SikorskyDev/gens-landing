@@ -158,6 +158,8 @@
         &-prev {
             min-width: 40px;
             max-width: 40px;
+            cursor: pointer;
+
             @media(max-width: 605px){
                 min-width: 30px;
 
@@ -175,6 +177,7 @@
         &-next {
             max-width: 40px;
             min-width: 40px;
+            cursor: pointer;
             @media(max-width: 605px){
                 min-width: 30px;
 
