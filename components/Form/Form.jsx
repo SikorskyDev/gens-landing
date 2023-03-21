@@ -2,7 +2,8 @@ import React from 'react';
 import stl from './Form.module.scss';
 import { useForm } from 'react-hook-form';
 
-const Form = () => {
+const Form = ({ fetchedGens }) => {
+    console.log(fetchedGens)
     const {
         register,
         handleSubmit,
@@ -12,6 +13,7 @@ const Form = () => {
         mode: "onBlur",
     });
     const onSubmit = handleSubmit((data) => {
+        
         alert(JSON.stringify({ data }));
         reset();
     });
@@ -74,15 +76,27 @@ const Form = () => {
                         </p>
                     )}
                 </div>
+                {fetchedGens.length > 0 ? (
+                    <select {...register("select", {
+                        required: "необхідно вибрати генератор"
+                    })}>
+                        {fetchedGens.map((generator) => {
+                            return (
+                                <option key={generator._id} value={`${generator.title} - ${generator.price} - ${generator.color} - ${generator.availability}`}>
+                                    {`${generator.title} - ${generator.price} грн. - ${generator.color} - ${generator.availability}`}
+                                </option>
+                            )
+                        })}
+                    </select>
 
-                <select {...register("select", {
-                    required: "необхідно вибрати генератор"
-                })}>
-                    <option value={`LUOTIAN LT3800 3,8 кВт - 7599 грн - жовтий - в наявності`}>LUOTIAN LT3800 3,8 кВт - 7599 грн - жовтий - в наявності</option>
-                    <option value="LT4600">LUOTIAN LT4600 3,8 кВт - 7599 грн - жовтий - в наявності</option>
-                    <option value="LT6500">LUOTIAN LT6500 3,8 кВт - 7599 грн - жовтий - в наявності</option>
-                    <option value="LT6500">LUOTIAN LT6500 3,8 кВт - 7599 грн - жовтий - в наявності</option>
-                </select>
+                )
+                    :
+                    <select {...register("select", {
+                        required: "необхідно вибрати генератор"
+                    })}>
+                        <option value="error fetching data">відсутні товари</option>
+                    </select>
+                }
                 <div style={{ height: 20 }}>
                     {errors?.select && (
                         <p>

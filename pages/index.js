@@ -97,6 +97,24 @@ export default function Home() {
     //Вмикання плеєра по натисканню на зображення в першому блоці
     const [playVideo, setPlayVideo] = useState(false);
 
+    // Отримую перелік генераторів із сервера для select у формі для замовлення
+    const [fetchedGens, setFetchedGens] = useState([]);
+    React.useEffect(() => {
+        const fetchGens = async () => {
+            try {
+                const res = await fetch(
+                    "https://lending-generator-server.herokuapp.com/get-all-products"
+                );
+                const data = await res.json();
+                setFetchedGens(data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchGens();
+    }, []);
+
     return (
         <>
             <Head>
@@ -1313,7 +1331,7 @@ export default function Home() {
                 </section>
                 <section className="inputsGens" id="section-inputsGens">
                     <div className="form__container">
-                        <Form />
+                        <Form fetchedGens={fetchedGens} />
                     </div>
                 </section>
                 <section className="receiveGen">
