@@ -63,9 +63,15 @@
 .backHome {
     text-transform: uppercase;
     color: white;
-    font-size: 20px;
+    font-size: 25px;
     margin-bottom: 50px;
     :hover{
         color: rgb(141, 141, 141);
     }
+
+}
+.backHomeLink{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }

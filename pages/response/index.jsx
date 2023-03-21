@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import MyButton2 from "@/components/MyButton2";
 import { useRouter } from 'next/router';
+import {BsFillArrowLeftSquareFill} from "react-icons/bs";
 
 
 
@@ -44,7 +45,7 @@ const response = () => {
         <div className="response">
             <div className="response__container">
                 <div className="backHome">
-                    <Link href={"/"} className="backHomeLink">Повернутись назад</Link>
+                    <Link href={"/"} className="backHomeLink"><BsFillArrowLeftSquareFill/> НАЗАД</Link>
                 </div>
                 <h2>
                     Залиште відгук:
@@ -60,7 +61,7 @@ const response = () => {
                     <textarea value={clientText} onChange={(e) => setClientText(e.target.value)} placeholder="Напишіть відгук" />
                 </div>
                 <div>
-                    Поставте оцінку:
+                    Поставте оцінку від 1 до 5:
                     <select value={clientNumber} onChange={(e) => setClientNumber(e.target.value)} >
                         <option value="1">1</option>
                         <option value="2">2</option>
