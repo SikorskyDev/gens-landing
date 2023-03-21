@@ -3,7 +3,6 @@ import stl from './Form.module.scss';
 import { useForm } from 'react-hook-form';
 
 const Form = ({ fetchedGens }) => {
-    console.log(fetchedGens)
     const {
         register,
         handleSubmit,
@@ -13,7 +12,7 @@ const Form = ({ fetchedGens }) => {
         mode: "onBlur",
     });
     const onSubmit = handleSubmit((data) => {
-        
+
         alert(JSON.stringify({ data }));
         reset();
     });
@@ -82,7 +81,7 @@ const Form = ({ fetchedGens }) => {
                     })}>
                         {fetchedGens.map((generator) => {
                             return (
-                                <option key={generator._id} value={`${generator.title} - ${generator.price} - ${generator.color} - ${generator.availability}`}>
+                                <option key={generator._id} value={`${generator.title} - ${generator.price} грн. - ${generator.color} - ${generator.availability}`}>
                                     {`${generator.title} - ${generator.price} грн. - ${generator.color} - ${generator.availability}`}
                                 </option>
                             )
