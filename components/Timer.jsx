@@ -57,15 +57,15 @@ const Timer = () => {
                     <div className="timer__title">ДО КІНЦЯ АКЦІЇЇ ЗАЛИШИЛОСЬ</div>
                     <div className="timer__numbers-block">
                         <div className="timer__numbers-cell">
-                            <div className="timer__number">{days}</div>
+                            <div className="timer__number">{days === NaN ? 0 : days}</div>
                             <div className="timer__text">днів</div>
                         </div>
                         <div className="timer__numbers-cell">
-                            <div className="timer__number">{hours}</div>
+                            <div className="timer__number">{hours === NaN ? 0 : hours}</div>
                             <div className="timer__text">годин</div>
                         </div>
                         <div className="timer__numbers-cell">
-                            <div className="timer__number">{minutes}</div>
+                            <div className="timer__number">{minutes === NaN ? 0 : minutes}</div>
                             <div className="timer__text">хвилин</div>
                         </div>
                     </div>
