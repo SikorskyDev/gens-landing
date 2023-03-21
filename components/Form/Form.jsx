@@ -2,7 +2,7 @@ import React from 'react';
 import stl from './Form.module.scss';
 import { useForm } from 'react-hook-form';
 
-const Form = ({ fetchedGens }) => {
+const Form = ({ fetchedGens, errorFetchedGens, isLoadingFetchedGens }) => {
     const {
         register,
         handleSubmit,
@@ -60,7 +60,6 @@ const Form = ({ fetchedGens }) => {
                         <p>{errors?.phone?.message || "Ввеедіть коректний номер телефону!"}</p>
                     )}
                 </div>
-                {/* <input type="reset" value="ОЧИСТИТИ" /> */}
                 <input
                     placeholder="Адреса доставки"
                     type="text"
@@ -75,7 +74,15 @@ const Form = ({ fetchedGens }) => {
                         </p>
                     )}
                 </div>
-                {fetchedGens.length > 0 ? (
+                {isLoadingFetchedGens && (
+                    <select {...register("select", {
+                        required: "необхідно вибрати генератор"
+                    })}>
+                        <option value={"завантаження..."}>завантаження...</option>
+                    </select>
+
+                )}
+                {!errorFetchedGens && !isLoadingFetchedGens && fetchedGens && fetchedGens.length > 0 ? (
                     <select {...register("select", {
                         required: "необхідно вибрати генератор"
                     })}>

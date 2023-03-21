@@ -30,11 +30,14 @@ import offersIcon4 from "../public/icons/offer/4.svg";
 import offersArrow from "../public/icons/offer/arrow.svg";
 import Form from "@/components/Form/Form";
 import Link from "next/link";
+import useSWR from "swr";
 
 const roboto = Roboto({
     subsets: ["latin"],
     weight: ["100", "300", "500", "700"],
 });
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Home() {
     //-------------------Відкриття та закриття характеристик------------------------
@@ -62,18 +65,30 @@ export default function Home() {
     //----------------------------------------------------------------
 
     //--------------Відгуки-------------------
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [responseArr, setResponseArr] = useState([]);
+    //------SWR------
 
-    React.useEffect(() => {
-        fetch(
-            "https://lending-generator-server.herokuapp.com/get-all-admin-comments"
-        )
-            .then((res) => res.json())
-            .then((res) => {
-                setResponseArr(res);
-            });
-    }, []);
+    const {
+        data: responseArr,
+        error: errorResponseArr,
+        isLoading: isLoadingResponseArr,
+    } = useSWR(
+        "https://lending-generator-server.herokuapp.com/get-all-admin-comments",
+        fetcher
+    );
+
+    //---------------
+    const [currentIndex, setCurrentIndex] = useState(0);
+    // const [responseArr, setResponseArr] = useState([]);
+
+    // React.useEffect(() => {
+    //     fetch(
+    //         "https://lending-generator-server.herokuapp.com/get-all-admin-comments"
+    //     )
+    //         .then((res) => res.json())
+    //         .then((res) => {
+    //             setResponseArr(res);
+    //         });
+    // }, []);
 
     const previousResponse = () => {
         if (currentIndex === 0) {
@@ -91,29 +106,40 @@ export default function Home() {
         }
     };
 
-    const currentResponse = responseArr[currentIndex];
+    const currentResponse = !responseArr || errorResponseArr ? [] : responseArr[currentIndex];
     //------------------------------------------
 
     //Вмикання плеєра по натисканню на зображення в першому блоці
     const [playVideo, setPlayVideo] = useState(false);
 
     // Отримую перелік генераторів із сервера для select у формі для замовлення
-    const [fetchedGens, setFetchedGens] = useState([]);
-    React.useEffect(() => {
-        const fetchGens = async () => {
-            try {
-                const res = await fetch(
-                    "https://lending-generator-server.herokuapp.com/get-all-products"
-                );
-                const data = await res.json();
-                setFetchedGens(data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
+    //------SWR------
+    const {
+        data: fetchedGens,
+        error: errorFetchedGens,
+        isLoadingFetchedGens,
+    } = useSWR(
+        "https://lending-generator-server.herokuapp.com/get-all-products",
+        fetcher
+    );
 
-        fetchGens();
-    }, []);
+    //-----------------------------------------
+    // const [fetchedGens, setFetchedGens] = useState([]);
+    // React.useEffect(() => {
+    //     const fetchGens = async () => {
+    //         try {
+    //             const res = await fetch(
+    //                 "https://lending-generator-server.herokuapp.com/get-all-products"
+    //             );
+    //             const data = await res.json();
+    //             setFetchedGens(data);
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
+
+    //     fetchGens();
+    // }, []);
 
     return (
         <>
@@ -1161,100 +1187,107 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
-                <section className="reviews">
-                    <div className="reviews__title">
-                        <div className="reviews__title-value">
-                            ВІДГУКИ КЛІЄНТІВ
-                        </div>
-                    </div>
-                    <div className="reviews__row __container">
-                        <div
-                            className="reviews__row-prev"
-                            onClick={previousResponse}
-                        >
-                            <Image src={reviewsBack} alt="back" />
-                        </div>
-                        <div className="reviews__row-body">
-                            <div className="reviews__row-body-left">
-                                <div className="reviews__row-body-left-avatar">
-                                    <Image
-                                        src={`${
-                                            currentResponse?.imageUrl !=
-                                                undefined &&
-                                            currentResponse?.imageUrl !=
-                                                "null" &&
-                                            currentResponse?.imageUrl != ""
-                                                ? currentResponse?.imageUrl
-                                                : "/img/avatars/1.jpg"
-                                        }`}
-                                        alt={`${
-                                            currentResponse?.imageUrl !=
-                                                undefined &&
-                                            currentResponse?.imageUrl != "null"
-                                                ? currentResponse?.imageUrl
-                                                : "/img/avatars/1.jpg"
-                                        }`}
-                                        width={100}
-                                        height={100}
-                                        layout="responsive"
-                                        objectFit="cover"
-                                    />
-                                </div>
-                                <div className="reviews__row-body-left-rating">
-                                    {Array.from({
-                                        length:
-                                            Math.ceil(
-                                                Number(currentResponse?.rating)
-                                            ) > 5
-                                                ? 5
-                                                : Math.ceil(
-                                                      Number(
-                                                          currentResponse?.rating
-                                                      )
-                                                  ),
-                                    }).map((_, index) => {
-                                        return (
-                                            <Image
-                                                key={index.toString()}
-                                                src={rewiewsStar}
-                                                alt="star"
-                                            />
-                                        );
-                                    })}
-                                </div>
-                                <div className="reviews__row-body-left-data">
-                                    {currentResponse?.date}
-                                </div>
-                            </div>
-                            <div className="reviews__row-body-right">
-                                <div className="reviews__row-body-right-title">
-                                    {currentResponse?.name}
-                                </div>
-                                <div className="reviews__row-body-right-text">
-                                    {currentResponse?.description}
-                                </div>
+                {isLoadingResponseArr ? (
+                    <h2>завантаження відгуків...</h2>
+                ) : (
+                    <section className="reviews">
+                        <div className="reviews__title">
+                            <div className="reviews__title-value">
+                                ВІДГУКИ КЛІЄНТІВ
                             </div>
                         </div>
-                        <div
-                            className="reviews__row-next"
-                            onClick={nextResponse}
-                        >
-                            <Image src={reviewsNext} alt="next" />
+                        <div className="reviews__row __container">
+                            <div
+                                className="reviews__row-prev"
+                                onClick={previousResponse}
+                            >
+                                <Image src={reviewsBack} alt="back" />
+                            </div>
+                            <div className="reviews__row-body">
+                                <div className="reviews__row-body-left">
+                                    <div className="reviews__row-body-left-avatar">
+                                        <Image
+                                            src={`${
+                                                currentResponse?.imageUrl !=
+                                                    undefined &&
+                                                currentResponse?.imageUrl !=
+                                                    "null" &&
+                                                currentResponse?.imageUrl != ""
+                                                    ? currentResponse?.imageUrl
+                                                    : "/img/avatars/1.jpg"
+                                            }`}
+                                            alt={`${
+                                                currentResponse?.imageUrl !=
+                                                    undefined &&
+                                                currentResponse?.imageUrl !=
+                                                    "null"
+                                                    ? currentResponse?.imageUrl
+                                                    : "/img/avatars/1.jpg"
+                                            }`}
+                                            width={100}
+                                            height={100}
+                                            layout="responsive"
+                                            objectFit="cover"
+                                        />
+                                    </div>
+                                    <div className="reviews__row-body-left-rating">
+                                        {Array.from({
+                                            length:
+                                                Math.ceil(
+                                                    Number(
+                                                        currentResponse?.rating
+                                                    )
+                                                ) > 5
+                                                    ? 5
+                                                    : Math.ceil(
+                                                          Number(
+                                                              currentResponse?.rating
+                                                          )
+                                                      ),
+                                        }).map((_, index) => {
+                                            return (
+                                                <Image
+                                                    key={index.toString()}
+                                                    src={rewiewsStar}
+                                                    alt="star"
+                                                />
+                                            );
+                                        })}
+                                    </div>
+                                    <div className="reviews__row-body-left-data">
+                                        {currentResponse?.date}
+                                    </div>
+                                </div>
+                                <div className="reviews__row-body-right">
+                                    <div className="reviews__row-body-right-title">
+                                        {currentResponse?.name}
+                                    </div>
+                                    <div className="reviews__row-body-right-text">
+                                        {currentResponse?.description}
+                                    </div>
+                                </div>
+                            </div>
+                            <div
+                                className="reviews__row-next"
+                                onClick={nextResponse}
+                            >
+                                <Image src={reviewsNext} alt="next" />
+                            </div>
                         </div>
-                    </div>
-                    <Link href={"/response"} className="reviews__btn">
-                        <MyButton2
-                            btnHeight={"90px"}
-                            fontSize={width < 308 ? 15 : 20}
-                        >
-                            ЗАЛИШИТИ СВІЙ ВІДГУК
-                        </MyButton2>
-                    </Link>
-                    <div className="reviews__count">
-                        Відгуки від клієнтів (
-                        {responseArr ? responseArr.length : "38"} шт)
-                    </div>
-                </section>
+                        <Link href={"/response"} className="reviews__btn">
+                            <MyButton2
+                                btnHeight={"90px"}
+                                fontSize={width < 308 ? 15 : 20}
+                            >
+                                ЗАЛИШИТИ СВІЙ ВІДГУК
+                            </MyButton2>
+                        </Link>
+                        <div className="reviews__count">
+                            Відгуки від клієнтів (
+                            {responseArr ? responseArr.length : "38"} шт)
+                        </div>
+                    </section>
+                )}
                 <section className="offers">
                     <div className="offers__title">
                         <div className="offers__title-value">
@@ -1331,7 +1364,11 @@ export default function Home() {
                 </section>
                 <section className="inputsGens" id="section-inputsGens">
                     <div className="form__container">
-                        <Form fetchedGens={fetchedGens} />
+                        <Form
+                            fetchedGens={fetchedGens}
+                            errorFetchedGens={errorFetchedGens}
+                            isLoadingFetchedGens={isLoadingFetchedGens}
+                        />
                     </div>
                 </section>
                 <section className="receiveGen">
