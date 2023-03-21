@@ -106,7 +106,8 @@ export default function Home() {
         }
     };
 
-    const currentResponse = !responseArr || errorResponseArr ? [] : responseArr[currentIndex];
+    const currentResponse =
+        !responseArr || errorResponseArr ? [] : responseArr[currentIndex];
     //------------------------------------------
 
     //Вмикання плеєра по натисканню на зображення в першому блоці
@@ -122,6 +123,30 @@ export default function Home() {
         "https://lending-generator-server.herokuapp.com/get-all-products",
         fetcher
     );
+    let luotian3800 =
+        !errorFetchedGens && fetchedGens
+            ? Number(
+                  fetchedGens.find(
+                      (generator) => generator.title === "LUOTIAN 3800 3 кВт"
+                  ).price
+              )
+            : 7499;
+    let luotian4500 =
+        !errorFetchedGens && fetchedGens
+            ? Number(
+                  fetchedGens.find(
+                      (generator) => generator.title === "LUOTIAN 4500 4.5 кВт"
+                  ).price
+              )
+            : 8499;
+    let luotian6500 =
+        !errorFetchedGens && fetchedGens
+            ? Number(
+                  fetchedGens.find(
+                      (generator) => generator.title === "LUOTIAN 6500 4.5 кВт"
+                  ).price
+              )
+            : 22000;
 
     //-----------------------------------------
     // const [fetchedGens, setFetchedGens] = useState([]);
@@ -206,7 +231,11 @@ export default function Home() {
                     </div>
                 </section>
                 <div className="main__discount">
-                    <Discount lowPrice={99999} percent={20} price={99999} />
+                    <Discount
+                        percent={20}
+                        lowPrice={Math.round(luotian3800 * 0.25 + luotian3800)}
+                        price={Math.round(luotian3800)}
+                    />
                 </div>
                 <section
                     className="firstTimer"
@@ -423,8 +452,10 @@ export default function Home() {
                         </div>
                         <div className="gens__discount">
                             <Discount
-                                lowPrice={9999}
-                                price={9999}
+                                lowPrice={Math.round(
+                                    luotian3800 * 0.25 + luotian3800
+                                )}
+                                price={Math.round(luotian3800)}
                                 percent={20}
                             />
                         </div>
@@ -681,8 +712,10 @@ export default function Home() {
                         </div>
                         <div className="gens__discount">
                             <Discount
-                                lowPrice={9999}
-                                price={9999}
+                                lowPrice={Math.round(
+                                    luotian4500 * 0.25 + luotian4500
+                                )}
+                                price={Math.round(luotian4500)}
                                 percent={20}
                             />
                         </div>
@@ -939,8 +972,10 @@ export default function Home() {
                         </div>
                         <div className="gens__discount">
                             <Discount
-                                lowPrice={9999}
-                                price={9999}
+                                lowPrice={Math.round(
+                                    luotian6500 * 0.25 + luotian6500
+                                )}
+                                price={Math.round(luotian6500)}
                                 percent={20}
                             />
                         </div>

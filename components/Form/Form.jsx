@@ -12,16 +12,33 @@ const Form = ({ fetchedGens, errorFetchedGens, isLoadingFetchedGens }) => {
         mode: "onBlur",
     });
     const onSubmit = handleSubmit((data) => {
+        const sendData = async () => {
+            try {
+                const response = await fetch("https://lending-generator-server.herokuapp.com/create-order", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({data})
+                });
 
-        alert(JSON.stringify({ data }));
-        reset();
+                if (!response.ok) {
+                    throw new Error("Failed to create order.");
+                }
+
+                reset();
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        sendData();
     });
     return (
         <div className={stl.formContainer}>
             <form onSubmit={onSubmit}>
                 <input
                     placeholder="Ім'я"
-                    {...register("firstName", {
+                    {...register("name", {
                         required: "поле обов'язкове для заповнення",
                         minLength: {
                             value: 2,
@@ -75,15 +92,13 @@ const Form = ({ fetchedGens, errorFetchedGens, isLoadingFetchedGens }) => {
                     )}
                 </div>
                 {isLoadingFetchedGens && (
-                    <select {...register("select", {
-                        required: "необхідно вибрати генератор"
-                    })}>
+                    <select>
                         <option value={"завантаження..."}>завантаження...</option>
                     </select>
-
                 )}
-                {!errorFetchedGens && !isLoadingFetchedGens && fetchedGens && fetchedGens.length > 0 ? (
-                    <select {...register("select", {
+
+                {!errorFetchedGens && !isLoadingFetchedGens && fetchedGens && fetchedGens.length > 0 && (
+                    <select {...register("selectedorder", {
                         required: "необхідно вибрати генератор"
                     })}>
                         {fetchedGens.map((generator) => {
@@ -96,13 +111,9 @@ const Form = ({ fetchedGens, errorFetchedGens, isLoadingFetchedGens }) => {
                     </select>
 
                 )
-                    :
-                    <select {...register("select", {
-                        required: "необхідно вибрати генератор"
-                    })}>
-                        <option value="error fetching data">відсутні товари</option>
-                    </select>
                 }
+
+
                 <div style={{ height: 20 }}>
                     {errors?.select && (
                         <p>
