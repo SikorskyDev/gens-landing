@@ -31,6 +31,7 @@ import offersArrow from "../public/icons/offer/arrow.svg";
 import Form from "@/components/Form/Form";
 import Link from "next/link";
 import useSWR from "swr";
+import StarRatings from "react-star-ratings";
 
 const roboto = Roboto({
     subsets: ["latin"],
@@ -441,6 +442,14 @@ export default function Home() {
                     </div>
                 </section>
                 <section className="gensList" id="section-gensList">
+                    <div
+                        className="reviews__title"
+                        style={{ marginBottom: "0px" }}
+                    >
+                        <div className="reviews__title-value">
+                            ПІДІБРАТИ ГЕНЕРАТОР
+                        </div>
+                    </div>
                     <div className="gensList__item">
                         <div className="gens__title">
                             <div className="gens__title-value __container">
@@ -1225,7 +1234,7 @@ export default function Home() {
                 {isLoadingResponseArr ? (
                     <h2>завантаження відгуків...</h2>
                 ) : (
-                    <section className="reviews">
+                    <section className="reviews" id="section-reviews">
                         <div className="reviews__title">
                             <div className="reviews__title-value">
                                 ВІДГУКИ КЛІЄНТІВ
@@ -1266,7 +1275,24 @@ export default function Home() {
                                         />
                                     </div>
                                     <div className="reviews__row-body-left-rating">
-                                        {Array.from({
+                                        <StarRatings
+                                            rating={
+                                                currentResponse?.rating &&
+                                                Math.ceil(
+                                                    Number(
+                                                        currentResponse?.rating
+                                                    )
+                                                )
+                                            }
+                                            starRatedColor="#F38A21"
+                                            numberOfStars={5}
+                                            name="rating"
+                                            starDimension={
+                                                width < 382 ? "20px" : "30px"
+                                            }
+                                            starSpacing="5px"
+                                        />
+                                        {/* {Array.from({
                                             length:
                                                 Math.ceil(
                                                     Number(
@@ -1287,7 +1313,7 @@ export default function Home() {
                                                     alt="star"
                                                 />
                                             );
-                                        })}
+                                        })} */}
                                     </div>
                                     <div className="reviews__row-body-left-data">
                                         {currentResponse?.date}

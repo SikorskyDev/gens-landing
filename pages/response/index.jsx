@@ -45,7 +45,7 @@ const response = () => {
         <div className="response">
             <div className="response__container">
                 <div className="backHome">
-                    <Link href={"/"} className="backHomeLink"><BsFillArrowLeftSquareFill/> НАЗАД</Link>
+                    <Link href={"/#section-reviews"} className="backHomeLink"><BsFillArrowLeftSquareFill/> НАЗАД</Link>
                 </div>
                 <h2>
                     Залиште відгук:
