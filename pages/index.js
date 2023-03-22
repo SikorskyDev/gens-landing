@@ -128,7 +128,8 @@ export default function Home() {
         !errorFetchedGens && fetchedGens
             ? Number(
                   fetchedGens.find(
-                      (generator) => generator.title === "LUOTIAN 3800 3 кВт"
+                      (generator) =>
+                          generator._id === "6411f6e49200c421b64bbe7b"
                   ).price
               )
             : 7499;
@@ -136,7 +137,8 @@ export default function Home() {
         !errorFetchedGens && fetchedGens
             ? Number(
                   fetchedGens.find(
-                      (generator) => generator.title === "LUOTIAN 4500 4.5 кВт"
+                      (generator) =>
+                          generator._id === "6411f7689200c421b64bbe7d"
                   ).price
               )
             : 8499;
@@ -144,10 +146,29 @@ export default function Home() {
         !errorFetchedGens && fetchedGens
             ? Number(
                   fetchedGens.find(
-                      (generator) => generator.title === "LUOTIAN 6500 4.5 кВт"
+                      (generator) =>
+                          generator._id === "6411f7729200c421b64bbe7f"
                   ).price
               )
             : 22000;
+    let luotian3800Title =
+        !errorFetchedGens && fetchedGens
+            ? fetchedGens.find(
+                  (generator) => generator._id === "6411f6e49200c421b64bbe7b"
+              ).title
+            : "ГАЗОВО-БЕНЗИНОВИЙ ГЕНЕРАТОР LUOTIAN 3800 3.8 КВТ";
+    let luotian4500Title =
+        !errorFetchedGens && fetchedGens
+            ? fetchedGens.find(
+                  (generator) => generator._id === "6411f7689200c421b64bbe7d"
+              ).title
+            : "ГАЗОВО-БЕНЗИНОВИЙ ГЕНЕРАТОР LUOTIAN 4500 4.5 КВТ";
+    let luotian6500Title =
+        !errorFetchedGens && fetchedGens
+            ? fetchedGens.find(
+                  (generator) => generator._id === "6411f7729200c421b64bbe7f"
+              ).title
+            : "ГАЗОВО-БЕНЗИНОВИЙ ГЕНЕРАТОР LUOTIAN 6500 4.5 КВТ";
 
     //-----------------------------------------
     // const [fetchedGens, setFetchedGens] = useState([]);
@@ -453,7 +474,7 @@ export default function Home() {
                     <div className="gensList__item">
                         <div className="gens__title">
                             <div className="gens__title-value __container">
-                                Газово-бензиновий генератор Loutian LT3800
+                                Газово-бензиновий генератор {luotian3800Title}
                             </div>
                         </div>
                         <div className="gens__picture __container">
@@ -699,13 +720,13 @@ export default function Home() {
                                 <MyButton2
                                     btnHeight="140px"
                                     fontSize={
-                                        width < 312 ? 15 : width > 505 ? 30 : 18
+                                        width < 312 ? 14 : width > 505 ? 30 : 18
                                     }
                                     lineHeight={width > 505 ? 40 : 20}
                                 >
                                     Замовити зі знижкою
                                     <br />
-                                    LUOTIAN LT3800
+                                    {luotian3800Title}
                                 </MyButton2>
                             </a>
                         </div>
@@ -713,7 +734,7 @@ export default function Home() {
                     <div className="gensList__item">
                         <div className="gens__title">
                             <div className="gens__title-value __container">
-                                Газово-бензиновий генератор LUOTIAN LT4500
+                                Газово-бензиновий генератор {luotian4500Title}
                             </div>
                         </div>
                         <div className="gens__picture __container">
@@ -959,13 +980,13 @@ export default function Home() {
                                 <MyButton2
                                     btnHeight="140px"
                                     fontSize={
-                                        width < 312 ? 15 : width > 505 ? 30 : 18
+                                        width < 312 ? 14 : width > 505 ? 30 : 18
                                     }
                                     lineHeight={width > 505 ? 40 : 20}
                                 >
                                     Замовити зі знижкою
                                     <br />
-                                    LUOTIAN LT4500
+                                    {luotian4500Title}
                                 </MyButton2>
                             </a>
                         </div>
@@ -973,7 +994,7 @@ export default function Home() {
                     <div className="gensList__item">
                         <div className="gens__title">
                             <div className="gens__title-value __container">
-                                Газово-бензиновий генератор LUOTIAN LT6500
+                                Газово-бензиновий генератор {luotian6500Title}
                             </div>
                         </div>
                         <div className="gens__picture __container">
@@ -1219,13 +1240,13 @@ export default function Home() {
                                 <MyButton2
                                     btnHeight="140px"
                                     fontSize={
-                                        width < 312 ? 15 : width > 505 ? 30 : 18
+                                        width < 312 ? 14 : width > 505 ? 30 : 18
                                     }
                                     lineHeight={width > 505 ? 40 : 20}
                                 >
                                     Замовити зі знижкою
                                     <br />
-                                    LUOTIAN LT6500
+                                    {luotian6500Title}
                                 </MyButton2>
                             </a>
                         </div>

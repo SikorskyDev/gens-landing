@@ -58,6 +58,7 @@ const Form = ({ fetchedGens, errorFetchedGens, isLoadingFetchedGens }) => {
                     )}
                 </div>
                 <input
+                className={stl.inpNumber}
                     placeholder="Номер телефону"
                     type="number"
                     {...register("phone", {
